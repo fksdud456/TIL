@@ -1,0 +1,9 @@
+﻿  test1.cpp
+c:\til\test1\test1\test1.cpp(45): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int *'입니다.
+c:\til\test1\test1\test1.cpp(45): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'char *'입니다.
+c:\til\test1\test1\test1.cpp(45): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 3의 형식이 'double *'입니다.
+c:\til\test1\test1\test1.cpp(46): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int *'입니다.
+c:\til\test1\test1\test1.cpp(46): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 2의 형식이 'char *'입니다.
+c:\til\test1\test1\test1.cpp(46): warning C4477: 'printf' : 서식 문자열 '%d'에 'int' 형식의 인수가 필요하지만 variadic 인수 3의 형식이 'double *'입니다.
+  Test1.vcxproj -> C:\TIL\Test1\Debug\Test1.exe
+  Test1.vcxproj -> C:\TIL\Test1\Debug\Test1.pdb (Partial PDB)
