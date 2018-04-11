@@ -18,6 +18,7 @@ public class LifecycleActivity extends AppCompatActivity {
     TextView lifecycle_tx;
     Date date = new Date();
     SharedPreferences sp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

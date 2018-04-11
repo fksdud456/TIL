@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tv_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -33,13 +34,13 @@
         android:text="ButtonsView" />
 
     <Button
-        android:id="@+id/bt_test"
+        android:id="@+id/bt_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="110dp"
         android:onClick="clickBt"
-        android:text="Test" />
+        android:text="Activity Result" />
 
 </RelativeLayout>
