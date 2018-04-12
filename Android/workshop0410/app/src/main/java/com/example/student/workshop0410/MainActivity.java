@@ -10,6 +10,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.BreakIterator;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
     Button bt_home;
     TextView tx_time, login_id, login_pwd;
@@ -75,5 +78,34 @@ public class MainActivity extends AppCompatActivity {
             wv_mv.loadUrl("http://70.12.114.150:80/mv/");
             wv_mv.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void updateTime() {
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                while (!isInterrupted()) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Calendar calendar = Calendar.getInstance();
+                            int hour = calendar.get(Calendar.HOUR_OF_DAY); // 시
+                            int minute = calendar.get(Calendar.MINUTE); // 분
+                            int second = calendar.get(Calendar.SECOND); // 초
+
+
+                            tx_time.setText(hour + ":" + minute + ":" + second + "\n");
+                        }
+                    });
+                    try {
+                        Thread.sleep(1000); // 1000 ms = 1초
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } // while
+            } // run()
+        }; // new Thread() { };
+
+
     }
 }
