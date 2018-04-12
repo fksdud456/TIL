@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
             tx_service.setText(command + " " + cnt);
             progressBar.setProgress(cnt*10);
             if(cnt%2 == 0) {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.bg4));
+                imageView.setImageResource(R.drawable.bg4);
             } else {
-                imageView.setImageDrawable(getResources().getDrawable(R.drawable.bg0));
+                imageView.setImageResource(R.drawable.bg0);
             }
         }
     }
