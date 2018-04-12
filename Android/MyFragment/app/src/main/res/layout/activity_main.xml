@@ -15,11 +15,11 @@
         android:text="HOME" />
 
     <Button
-        android:id="@+id/bt_second"
+        android:id="@+id/bt_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="clickBt"
-        android:text="Second" />
+        android:text="START SERVICE" />
 
     <FrameLayout
         android:id="@+id/container"
