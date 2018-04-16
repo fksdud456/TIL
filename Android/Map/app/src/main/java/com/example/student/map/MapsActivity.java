@@ -1,5 +1,9 @@
 package com.example.student.map;
 
+import android.content.Context;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,11 +19,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity {
     private GoogleMap mMap;
     private LinearLayout layout_map;
     private ImageView imageView;
     private WebView webView;
+    private MapController mapController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +33,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
+        mapController = new MapController(mapFragment);
         makeUI();
     }
 
@@ -40,22 +45,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         webView.setWebViewClient(new WebViewClient());
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://70.12.114.150/mv");
+        webView.loadUrl("https://www.naver.com/");
 
         layout_map.setVisibility(View.VISIBLE);
         imageView.setVisibility(View.INVISIBLE);
         webView.setVisibility(View.INVISIBLE);
-    }
-
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     public void clickBtn(View v) {
@@ -76,8 +70,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void clickMapBtn(View v) {
         if (v.getId() == R.id.bt_bread) {
+            mapController.addBakeryMarker();
         } else if (v.getId() == R.id.bt_alchole) {
+            mapController.addSulzipMarker();
         } else if (v.getId() == R.id.bt_cafe) {
+            mapController.addCafeMarker();
         }
     }
 
