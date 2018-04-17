@@ -63,3 +63,13 @@
     - Service
     - progressbar
     - AlertDialog
+    
+> **P553**   
+
+    - Thread / Runnable
+    - Handler
+    - Service
+
+> **555**   
+
+    - AsyncTask
