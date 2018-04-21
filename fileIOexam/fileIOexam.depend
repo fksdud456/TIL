@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1524322047 source:c:\users\yumryum\documents\codeblocks\fileioexam\main.c
+	<stdio.h>
+	<stdlib.h>
+
