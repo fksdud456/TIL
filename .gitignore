@@ -51,5 +51,6 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-Android/*
+Android/P300/*
+Android/MAP/*
 */.recommenders/*
