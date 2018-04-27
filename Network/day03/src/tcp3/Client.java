@@ -1,6 +1,8 @@
 package tcp3;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,11 +17,10 @@ public class Client {
 
 	Socket socket;
 	InputStream in;
-	InputStreamReader inr;
-	BufferedReader br;
+	DataInputStream din;
 	OutputStream out;
-	OutputStreamWriter outw;
-	
+	DataOutputStream dout;
+
 	public Client() {
 
 	}
@@ -53,28 +54,34 @@ public class Client {
 		try {
 			System.out.println("Connected . . ." + socket.getInetAddress());
 			out = socket.getOutputStream();
-			outw = new OutputStreamWriter(out);
-			outw.write("¾È³ç1!\n");
-			outw.flush();			
-		
+			dout = new DataOutputStream(out);
+			dout.writeUTF("¾È³ç server");
+			dout.flush();
+
 			in = socket.getInputStream();
-			inr = new InputStreamReader(in);
-			
-			br = new BufferedReader(inr);
-			
-			String str ="";			
-			while((str = br.readLine()) != null) {	
-				System.out.println(str);
-			}
-			
+			din = new DataInputStream(in);
+
+			String str = "";
+			System.out.println(din.readUTF());
 		} catch (UnknownHostException e) {
 			throw e;
 		} catch (IOException e) {
 			throw e;
 		} finally {
-			br.close();
-			socket.close();
-			outw.close();
+			try {
+				if (dout != null)
+					dout.close();
+				if (out != null)
+					out.close();
+				if (din != null)
+					din.close();
+				if (in != null)
+					in.close();
+				if (socket != null)
+					socket.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 

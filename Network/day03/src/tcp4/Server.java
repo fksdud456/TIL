@@ -13,7 +13,7 @@ public class Server {
 	int port;
 	ServerSocket serverSocket;
 	Socket socket;
-	boolean flag = true;
+	boolean flag;
 	InputStream in = null;
 	DataInputStream din = null;
 	OutputStream out = null;
@@ -37,7 +37,7 @@ public class Server {
 		Receiver receiver = new Receiver();
 		receiver.start();
 		while (flag) {
-			System.out.println("Input Server.. ");
+			System.out.print("Input Server.. >");
 			String str = scanner.nextLine();
 
 			if (str.equals("q")) {
@@ -56,7 +56,7 @@ public class Server {
 		public void run() {
 			while (true) {
 				try {
-					System.out.println(din.readUTF());
+					System.out.println("client¿¡¼­ ¿Â msg : "+din.readUTF());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -90,6 +90,13 @@ public class Server {
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				
+			} catch(Exception e) {
+				
+			}
+			
 		}
 	}
 }

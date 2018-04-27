@@ -13,13 +13,14 @@ public class Client {
 	String ip;
 	int port;	
 	Socket socket;
-	boolean flag = true;
+	boolean flag;
 	InputStream in = null;
 	DataInputStream din = null;
 	OutputStream out = null;
 	DataOutputStream dout = null;
 
 	public Client() {
+		flag = true;
 		this.ip = "70.12.114.150";
 		this.port = 7777;				
 	}
@@ -36,11 +37,12 @@ public class Client {
 		new Receiver().start();
 		
 		while(flag) {
-			System.out.println("Input Client . . . ");
+			System.out.print("Input Client . . . > ");
 			String str = scanner.nextLine();
 			
 			if(str.equals("q")) {
 				scanner.close();
+				flag = false;
 				break;
 			}
 
@@ -56,7 +58,7 @@ public class Client {
 		public void run() {
 			while (flag) {
 				try {
-					System.out.println(din.readUTF());
+					System.out.println("server ¿¡¼­ ¿Â message : "+ din.readUTF());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

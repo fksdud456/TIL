@@ -1,11 +1,10 @@
 package tcp3;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -13,10 +12,9 @@ public class Server {
 	class ReceiverAndSender implements Runnable {
 		Socket socket;
 		OutputStream out = null;
-		OutputStreamWriter outw = null;
+		DataOutputStream dout = null;
 		InputStream in = null;
-		InputStreamReader isr = null;
-		BufferedReader br = null;
+		DataInputStream din = null;
 
 		public ReceiverAndSender() {
 		}
@@ -24,32 +22,33 @@ public class Server {
 		public ReceiverAndSender(Socket socket) throws IOException {
 			this.socket = socket;
 			in = socket.getInputStream();
-			isr = new InputStreamReader(in);
-			br = new BufferedReader(isr);
+			din = new DataInputStream(in);
 			out = socket.getOutputStream();
-			outw = new OutputStreamWriter(out);
+			dout = new DataOutputStream(out);
 		}
 
 		@Override
 		public void run() {
-			try {				
-				String msg = br.readLine();
-				System.out.println(socket.getInetAddress() + " :: " + msg);
-				outw.write("¾È³ç1\n");
+			try {
+				String str = "";
+				System.out.println(socket.getInetAddress() + "::" + str);
+				System.out.println(din.readUTF());
+
+				dout.writeUTF("¾È³ç1");
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
 				try {
-					if (outw != null)
-						outw.close();
+					if (dout != null)
+						dout.close();
+					if (out != null)
+						out.close();
+					if (din != null)
+						din.close();
+					if (in != null)
+						in.close();
 					if (socket != null)
 						socket.close();
-					if (br != null)
-						br.close();
-					if (outw != null)
-						outw.close();
-					if(isr != null)
-						isr.close();
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
