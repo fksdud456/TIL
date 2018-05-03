@@ -6,16 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="83dp"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -25,4 +15,24 @@
         android:layout_marginTop="171dp"
         android:onClick="clickBtn"
         android:text="SEND" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="73dp"
+        android:ems="10"
+        android:inputType="number" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@android:dimen/thumbnail_height"
+        android:layout_height="@android:dimen/thumbnail_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="47dp"
+        app:srcCompat="@drawable/car22" />
+
 </RelativeLayout>

@@ -1,4 +1,7 @@
+/*
 package com.example.student.client;
+
+import android.util.Log;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,66 +9,55 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.Scanner;
+import java.net.UnknownHostException;
 
 public class Client extends Thread {
+    String TAG = "Client App ::: ";
+    boolean cflag = true;
+    boolean flag = true;
+    String address = "70.12.114.149";
+    int port = 8888;
 
-    boolean flag;
-    String address;
-    int port;
     Socket socket;
-    Scanner scanner;
-    boolean rflag;
 
     public Client() {
-        flag = true;
-        rflag = true;
-        address = "192.168.0.59";
-        port = 9999;
 
     }
 
-    public boolean connectServer() {
-        boolean result = false;
-        int count = 0;
-        while (count < 11) { // 서버와 통신 될 때 까지 접속 시도 루프
+    @Override
+    public void run() {
+        // 재접속을 위한 while
+        while (cflag) {
             try {
                 socket = new Socket(address, port);
-                if (socket != null && socket.isConnected()) {
-                    count = 11;
-                    result = true;
-                }
+                Log.d(TAG, "Connected Server ..");
+                cflag = false;
+                break;
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
             } catch (IOException e) {
-                count++;
-                System.out.println("Re-Try Connection..." + count);
+                Log.d(TAG, "Connected Retry ..");
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e1) {
                     e1.printStackTrace();
                 }
             }
         }
-        return result;
-    }
 
-    public void run() {
-        if(connectServer()) {
-            System.out.println("Connected " + socket.getInetAddress());
-            try {
-                Thread receiver = new Thread(new Receiver(socket));
-                receiver.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        // After Connected . .
+        try {
+            new Receiver(socket).start();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public void sendMessage(String message){
+    public void sendMsg(String msg) {
         try {
             Sender sender = new Sender(socket);
-            sender.setSendMsg(message);
-            Thread send = new Thread(sender);
-            send.start();
+            sender.setSendMsg(msg);
+            new Thread(sender).start();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,13 +83,13 @@ public class Client extends Thread {
         public void run() {
             try {
                 if (outw != null) {
+                    Log.d(TAG, "sendMSG : " + sendMsg);
                     outw.writeUTF(sendMsg);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     class Receiver extends Thread {
@@ -113,31 +105,34 @@ public class Client extends Thread {
 
         @Override
         public void run() {
-            while (rflag) {
-                try {
+            try {
+                // 계속 스레드가 실행하며 문자열을 받는다.
+                while (flag == true && inr != null) {
                     String str = inr.readUTF();
-                    System.out.println(str);
-                    if (str.trim().equals("q")) {
+                    Log.d(TAG, "recieve MSG : " + str);
+
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (inr != null)
                         inr.close();
-                        break;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Disconnected...");
-                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
-
-            try {
-                Thread.sleep(1000);
-                flag = false;
-                socket.close();
-                System.exit(0);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
         }
     }
 
-}
-
+    public void stopClient() {
+        try {
+            Thread.sleep(1000);
+            flag = false;
+            if (socket != null)
+                socket.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}*/
