@@ -1,9 +1,8 @@
 package com.example.student.server;
 
-import android.net.DhcpInfo;
-import android.net.wifi.WifiManager;
-import android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -14,18 +13,18 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.InetAddress;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
     private Server server;
-    private TextView txtV,txtV2;
+    private TextView txtV, txtV2;
     private TextView txtV_IP;
     private EditText editText;
     private boolean rflag;
@@ -78,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(msg.equals("t")) {
-                            txtV2.setText(ip  + "연결!");
+                        if (msg.equals("t")) {
+                            txtV2.setText(ip + "연결!");
                         } else {
                             txtV2.setText("실푸ㅐ");
                         }
@@ -92,6 +91,37 @@ public class MainActivity extends AppCompatActivity {
 
     // ServerSocket Start . . .
     public class Server extends Thread {
+
+        class SendHttp extends AsyncTask<Void, Void, Void> {
+            String surl = "http://70.12.114.150/webserver2/main.do?speed=";
+            URL url;
+            HttpURLConnection urlConn;
+            String speed, temp;
+            public SendHttp() {
+
+            }
+            public SendHttp(String speed) {
+                this.speed = speed;
+                surl += speed;
+                try {
+                    url = new URL(surl);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                try {
+                    urlConn = (HttpURLConnection) url.openConnection();
+                    urlConn.getResponseCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }
+
         ServerSocket serversocket;
         boolean flag = true;
         boolean rflag = true;
@@ -110,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("Ready Accept");
                     Socket socket = serversocket.accept(); // 멈춰있다가 반응이 오면 작동
                     new Receiver(socket).start(); // socket을 receiver에게 전달
-                    setConnect("t" , socket.getInetAddress().getHostAddress());
+                    setConnect("t", socket.getInetAddress().getHostAddress());
                 }
             } catch (Exception e) {
 
@@ -122,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
             sender.setMsg(msg);
             sender.start();
         }
+
         // Inner Class Receiver & Sender
         class Receiver extends Thread {
             // 여러 클라이언트가 서버에 들어오면 가장 먼저 거치는 스레드
@@ -134,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
             public Receiver(Socket socket) {
                 try {
-                    System.out.println("Connected Count : "+ hmap.size());
+                    System.out.println("Connected Count : " + hmap.size());
 
                     this.socket = socket;
                     in = socket.getInputStream();
@@ -155,7 +186,9 @@ public class MainActivity extends AppCompatActivity {
                         if (socket.isConnected() && din != null && din.available() > 0) {
                             String str = din.readUTF();
                             setSpeed(str);
-                            Log.d("Receiver :: " , str);
+                            SendHttp sendHttp = new SendHttp(str);
+                            sendHttp.execute();
+                            Log.d("Receiver :: ", str);
                         }
                     }
 
@@ -209,10 +242,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void stopServer() {
-            Log.d("sopServer" , "close");
+            Log.d("sopServer", "close");
             rflag = false;
         }
     }
     // ServerSocket End . . .
+
 
 } // end MainActivity . .
