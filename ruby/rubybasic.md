@@ -117,8 +117,65 @@ end
     end
     
     ```
+    
 
-  - 
+- 기본 매개변수
 
-- 
+- ```ruby
+  def factorial(n)
+      n == 0 ? 1 : n * factorial(n-1)
+  end
+  factorial = ArgumentError : wrong number of arguments (given 0, expected 1)
+  
+  def factorial_d(n=5)
+      n == 0 ? 1 : n * factorial_d(n-1)
+  end
+  factorial_d #120
+  
+  ```
+
+- ( , *numbers,  )
+
+
+
+### 8. block
+
+```ruby
+# 한 줄로 쓸 때는 {} 사용가능
+3.times { puts "hello" }
+
+# do-end 는 매개변수를 사용할 수 있다
+3.times do |asdf|
+    puts asdf  # 이 부분이 block 입니다
+end
+```
+
+```ruby
+def hihi
+    return "No block" unless block_given?
+    yield   # { } 문장이 대입된다
+end
+
+hihi # => "No block"
+hihi {puts "hihi"} # hihi
+```
+
+
+
+### 9. String
+
+```ruby
+a = "안녕하세요. \n 멋사입니다."	# => "안녕하세요. \n 멋사입니다."
+b = '안녕하세요. \n 멋사입니다.'	# => "안녕하세요. \\n 멋사입니다."
+
+puts a   # 안녕하세요. 
+ 		# 멋사입니다.
+
+puts b	# 안녕하세요. \n 멋사입니다."
+
+name = "Ranyoung"
+a = "#{name}님 안녕하세요"                                                                 # => "Ranyoung님 안녕하세요"                                        
+b ='#{name}님 안녕하세요'
+	# => "\#{name}님 안녕하세요"
+```
 
