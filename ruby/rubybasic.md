@@ -179,3 +179,82 @@ b ='#{name}님 안녕하세요'
 	# => "\#{name}님 안녕하세요"
 ```
 
+```ruby
+my_name = "youn ran yong"
+
+# ! 를 붙이면 자기 자신까지 바뀐다
+my_name.upcase!
+```
+
+
+
+### 10. array
+
+```ruby
+[8] pry(main)> arr << "string
+[8] pry(main)* "
+=> [1, "string\n"]
+[9] pry(main)> arr << :s
+=> [1, "string\n", :s]
+[10] pry(main)> arr << true
+=> [1, "string\n", :s, true]
+[11] pry(main)> arr
+=> [1, "string\n", :s, true]
+[12] pry(main)> arr[1]
+=> "string\n"
+[13] pry(main)> arr[-1]
+=> true
+[14] pry(main)> arr[-3]
+=> "string\n"
+[15] pry(main)> arr[1..2]
+=> ["string\n", :s]
+[16] pry(main)> arr[-2..-1]
+=> [:s, true]
+[17] pry(main)> arr << 5
+=> [1, "string\n", :s, true, 5]
+[18] pry(main)> arr.push 999
+=> [1, "string\n", :s, true, 5, 999]
+[19] pry(main)> arr.pop 1                                                                                                                         
+=> [999]
+[20] pry(main)> arr
+=> [1, "string\n", :s, true, 5]
+[21] pry(main)> arr.shift 1
+=> [1]
+[22] pry(main)> arr
+=> ["string\n", :s, true, 5]
+[23] pry(main)> 
+```
+
+
+
+### 11. hash
+
+- key, value로 이루어져 있다!
+
+- ```ruby
+  # hash 생성방법
+  hash.new(0)
+  hash1 = { :key => value }
+  hash2 = { key : value }
+  hash3 = { "key" => value }
+  
+  # array는 []
+  arr = []
+  arr.class	# => Array
+  # hash는 {}
+  hash = {}	# => Hash
+  
+  
+  ```
+
+- each로 반복하기
+
+- ```ruby
+  # k, v는 어떠한 문자로 적어도 됩니다.
+  hash1.each do |k,v|	
+      puts "#{k} : #{v}"
+  end
+  ```
+
+
+
