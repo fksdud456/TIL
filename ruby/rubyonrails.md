@@ -97,7 +97,7 @@
 
 ### 명령어
 
-#### git
+#### git Bash
 
 - `$ vagrant up` : vagrant 실행
 - `$ vagrant halt` : vagrant 종료
@@ -108,3 +108,9 @@
 - `$ cd /vagrant/` : vagrant의 공유 폴더로 이동
 - `$ rails new _app` : _app 서버 생성
 - `$ rails s` : 서버 실행
+
+
+
+Rails -v 4.2.10 에서는 server를 실행할 때 아래와 같이 해야한다
+
+`$ rails s -b 0.0.0.0`

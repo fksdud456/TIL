@@ -29,6 +29,11 @@ controller, view, images 등이 있는 디렉토리
 ```
 $ rails generate controller home
 $ rails g controller home 
+
+# home이라는 컨트롤러와 index라는 액션을 생성
+$ rails generate controller home index
+# home이라는 컨트롤러와 index라는 액션을 삭제
+$ rails destroy controller home index
 ```
 
 ### routes 및 페이지 설정
@@ -116,6 +121,12 @@ end
 
 ### Rails Server 실행
 
-`rails server`
+`$ rails server`
 
-`rails s`
+`$ rails s`
+
+
+
+Rails -v 4.2.10 에서는 server를 실행할 때 아래와 같이 해야한다
+
+`$ rails s -b 0.0.0.0`
