@@ -129,7 +129,7 @@
 
 
 
-### 이미지 버전 만들기
+### [이미지 버전 만들기](https://github.com/minimagick/minimagick) 
 
 > 실제로 이미지 활용에 따라 각기 다른 버전의 이미지를 잘라서 저장할 수 있다. 이때 사용되는 것은 `mini_magick` 이라는 Gem 이며, 이를 활용하기 위해서는 반드시 `image magick`을 설치해야함
 
@@ -193,11 +193,7 @@
 
 2. S3 bucket만들기
 
-3. **`figaro` 설정!**
-
-   ```
-   
-   ```
+3. **[`figaro`](https://github.com/laserlemon/figaro) 설정!!!!** 
 
    ```
    $ bundle install
@@ -212,7 +208,7 @@
    S3_BUCKET_NAME: 버킷이름
    ```
 
-4.  Gemfile
+4. Gemfile [ `fog-aws`](https://github.com/fog/fog-aws) 
 
    `gem 'fog-aws'`
 
